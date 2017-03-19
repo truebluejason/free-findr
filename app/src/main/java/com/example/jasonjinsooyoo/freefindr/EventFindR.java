@@ -1,5 +1,6 @@
 package com.example.jasonjinsooyoo.freefindr;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,9 +11,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.jasonjinsooyoo.freefindr.ENUM.Categories;
 import com.example.jasonjinsooyoo.freefindr.Tasks.RetrieveHttpDataTask;
 import com.example.jasonjinsooyoo.freefindr.Utilities.EventAdapter;
 
@@ -28,13 +31,21 @@ public class EventFindR extends AppCompatActivity {
         setContentView(R.layout.activity_event_find_r);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        final EventFindR thisActivity = this;
 
        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Event event = new Event("abcd");
+                event.setID(49);
+                event.setDesc("THIS IS A DESCRIPTION");
+                event.setLat(3.44);
+                event.setLon(5.664);
+                event.setType(Categories.ART);
+                Intent intent = new Intent(thisActivity, SingleEventActivity.class);
+                intent.putExtra("event", event);
+                startActivity(intent);
             }
         });
 
@@ -46,6 +57,12 @@ public class EventFindR extends AppCompatActivity {
 
         EventManager.getInstance().setAdapter(eventAdapter);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+
+            }
+        });
         
         try {
             new RetrieveHttpDataTask().execute("http://10.19.133.195:9859/attractions/");
@@ -76,4 +93,5 @@ public class EventFindR extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
