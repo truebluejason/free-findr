@@ -18,6 +18,7 @@ import android.widget.ListView;
 import com.example.jasonjinsooyoo.freefindr.ENUM.Categories;
 import com.example.jasonjinsooyoo.freefindr.Tasks.RetrieveHttpDataTask;
 import com.example.jasonjinsooyoo.freefindr.Utilities.EventAdapter;
+import com.example.jasonjinsooyoo.freefindr.Utilities.Geometry;
 
 public class EventFindR extends AppCompatActivity {
 
@@ -25,12 +26,17 @@ public class EventFindR extends AppCompatActivity {
 
     EventAdapter eventAdapter;
 
+    private final double fakeLongitude = 49.2606;
+    private final double fakeLatitude = -123.2460;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_find_r);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
 
        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +73,10 @@ public class EventFindR extends AppCompatActivity {
         String[] eventData = new String[4];
         eventData[0] = event.getName();
         eventData[1] = event.getType().toString();
-        eventData[2] = "12345";
+
+        double distance = Geometry.distance(fakeLatitude, fakeLongitude, event.getLat(), event.getLon());
+
+        eventData[2] = "" + (int)distance;
         eventData[3] = event.getDescription();
         Intent intent = new Intent(this, SingleEventActivity.class);
         intent.putExtra("event", eventData);

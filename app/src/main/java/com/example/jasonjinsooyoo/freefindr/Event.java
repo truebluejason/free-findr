@@ -20,6 +20,7 @@ public class Event{
     private Categories type;
     private String description;
 
+
     public Event(String name) {
         this.name = name;
     }
@@ -57,6 +58,9 @@ public class Event{
         if (type==Categories.TECH) return "TECH";
         return null;
     }
+
+    public double getLat() { return lat; }
+    public double getLon() { return lon; }
 
     // Two events are equal if and only if their id are the same
     @Override
