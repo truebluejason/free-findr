@@ -18,7 +18,11 @@ public class EventManager {
     }
 
     public void addEvent(Event e) {
-        eventList.add(e);
+        if (!eventList.contains(e)) eventList.add(e);
+    }
+
+    public ArrayList getEventList() {
+        return eventList;
     }
 
     public Event getEvent(int id) {

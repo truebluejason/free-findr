@@ -18,7 +18,8 @@ public class EventFindR extends AppCompatActivity {
     // RECYCLERVIEW
     protected RecyclerView myRV;
     // Number of items to be stored
-    protected static final int NUM_EVENTS = 5;
+    // TODO: Add a list of events to be displayed
+    protected static final int NUM_EVENTS = 15;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,19 @@ public class EventFindR extends AppCompatActivity {
         // Set adapter
         EventAdapter myAdapter = new EventAdapter(NUM_EVENTS);
         myRV.setAdapter(myAdapter);
+
+        Event event1 = new Event("e1");
+        Event event2 = new Event("e2");
+        Event event3 = new Event("e3");
+        event1.setID(1);
+        event2.setID(2);
+        event3.setID(3);
+        event1.setDesc("yee");
+        event2.setDesc("hee");
+        event3.setDesc("bee");
+        EventManager.getInstance().addEvent(event1);
+        EventManager.getInstance().addEvent(event2);
+        EventManager.getInstance().addEvent(event3);
     }
 
     @Override

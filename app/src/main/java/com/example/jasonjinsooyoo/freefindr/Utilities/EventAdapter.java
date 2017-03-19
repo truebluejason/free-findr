@@ -7,7 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.jasonjinsooyoo.freefindr.Event;
+import com.example.jasonjinsooyoo.freefindr.EventManager;
 import com.example.jasonjinsooyoo.freefindr.R;
+
+import java.util.ArrayList;
 
 /**
  * Created by jasonjinsooyoo on 2017-03-18.
@@ -40,6 +44,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     // Binds data to newly created view holder
     @Override
     public void onBindViewHolder(EventViewHolder holder, int position) {
+
         holder.bind(position);
     }
 
@@ -55,19 +60,20 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         TextView eventNameSpace;
         // Space for category to be stored
         TextView categorySpace;
+        // 15 Events to be displayed
+        ArrayList displayedEvents;
 
         public EventViewHolder(View itemView) {
             super(itemView);
             eventNameSpace = (TextView) itemView.findViewById(R.id.viewholder_instance);
             categorySpace = (TextView) itemView.findViewById(R.id.viewholder_instance_category);
+            displayedEvents = EventManager.getInstance().getEventList();
         }
 
         // Binds data to view
         public void bind(int viewContent) {
-
-            // TODO: 1. Properly bind data to event names and categories
-            eventNameSpace.setText(String.valueOf(viewContent));
-            categorySpace.setText(String.valueOf(viewContent));
+            eventNameSpace.setText(((Event) displayedEvents.get(viewContent)).getName());
+            categorySpace.setText(((Event) displayedEvents.get(viewContent)).getDescription());
         }
     }
 }

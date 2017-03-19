@@ -36,6 +36,11 @@ public class Event {
         this.description = description;
     }
 
+    // Getters
+    public int getID() {return id;}
+    public String getName() {return name;}
+    public String getDescription() {return description;}
+
     // Two events are equal if and only if their id are the same
     @Override
     public boolean equals(Object o) {
