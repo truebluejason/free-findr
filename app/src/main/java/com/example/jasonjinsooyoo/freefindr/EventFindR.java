@@ -10,17 +10,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.example.jasonjinsooyoo.freefindr.Tasks.RetrieveHttpDataTask;
 import com.example.jasonjinsooyoo.freefindr.Utilities.EventAdapter;
 
 public class EventFindR extends AppCompatActivity {
 
-    // RECYCLERVIEW
-    protected RecyclerView myRV;
-    // Number of items to be stored
-    // TODO: Add a list of events to be displayed
-    protected static final int NUM_EVENTS = 15;
+    protected ListView listView;
+
+    EventAdapter eventAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,41 +38,21 @@ public class EventFindR extends AppCompatActivity {
             }
         });
 
-        // RECYCLERVIEW SETUP
-        myRV = (RecyclerView) findViewById(R.id.rv_events);
-        // Set layout manager
-        LinearLayoutManager myMan = new LinearLayoutManager(this);
-        myRV.setLayoutManager(myMan);
-        // Optimize myRV
-        myRV.setHasFixedSize(true);
+        eventAdapter = new EventAdapter(this);
+
+        listView = (ListView) findViewById(R.id.event_list);
+
+        listView.setAdapter(eventAdapter);
+
+        EventManager.getInstance().setAdapter(eventAdapter);
+
         
         try {
-            new RetrieveHttpDataTask().execute("http://10.19.133.105:9859/attractions/");
+            new RetrieveHttpDataTask().execute("http://10.19.133.195:9859/attractions/");
         }
         catch (Exception e){
             System.out.println(e.toString());
         }
-
-        // Set adapter
-        EventAdapter myAdapter = new EventAdapter(NUM_EVENTS);
-        // Passes myAdapter to singleton to facilitate adding
-        EventManager.getInstance().setAdapter(myAdapter);
-        myRV.setAdapter(myAdapter);
-
-        /* tests
-        Event event1 = new Event("e1");
-        Event event2 = new Event("e2");
-        Event event3 = new Event("e3");
-        event1.setID(1);
-        event2.setID(2);
-        event3.setID(3);
-        event1.setDesc("yee");
-        event2.setDesc("hee");
-        event3.setDesc("bee");
-        EventManager.getInstance().addEvent(event1);
-        EventManager.getInstance().addEvent(event2);
-        EventManager.getInstance().addEvent(event3);
-        */
     }
 
     @Override

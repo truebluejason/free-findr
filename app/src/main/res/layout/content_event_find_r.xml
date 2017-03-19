@@ -14,9 +14,8 @@
     tools:showIn="@layout/activity_event_find_r"
     tools:context="com.example.jasonjinsooyoo.freefindr.EventFindR">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_events"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
-
+    <ListView
+        android:layout_width = "wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/event_list"/>
 </RelativeLayout>

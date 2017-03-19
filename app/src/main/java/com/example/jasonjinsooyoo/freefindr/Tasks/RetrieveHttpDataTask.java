@@ -20,8 +20,7 @@ public class RetrieveHttpDataTask extends android.os.AsyncTask<String, Void, Str
     @Override
     protected String doInBackground(String... urls) {
         try {
-            //URL url = new URL(urls[0]);
-            URL url = new URL("http", "10.19.133.195", 9859, "/attractions/");
+            URL url = new URL(urls[0]);
             String result = getResponseFromHttpUrl(url);
 
 
