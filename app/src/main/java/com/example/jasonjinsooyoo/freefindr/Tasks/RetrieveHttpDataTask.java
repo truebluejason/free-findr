@@ -2,8 +2,6 @@ package com.example.jasonjinsooyoo.freefindr.Tasks;
 
 import com.example.jasonjinsooyoo.freefindr.Utilities.JSONParser;
 
-import org.json.JSONException;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -16,13 +14,14 @@ import java.util.Scanner;
 
 public class RetrieveHttpDataTask extends android.os.AsyncTask<String, Void, String> {
 
-    private Exception exception;
+    public static final String BASE_URL = "http://10.19.133.195:9859/attractionsNear/";
+
     @Override
     protected String doInBackground(String... urls) {
         try {
             URL url = new URL(urls[0]);
-            String result = getResponseFromHttpUrl(url);
 
+            String result = getResponseFromHttpUrl(url);
 
             System.out.println(result);
             return result;
@@ -44,6 +43,7 @@ public class RetrieveHttpDataTask extends android.os.AsyncTask<String, Void, Str
 
     private String getResponseFromHttpUrl(URL url) throws IOException {
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+
         try {
             InputStream in = urlConnection.getInputStream();
 

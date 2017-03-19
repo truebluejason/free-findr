@@ -1,21 +1,17 @@
 package com.example.jasonjinsooyoo.freefindr;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.jasonjinsooyoo.freefindr.ENUM.Categories;
 import com.example.jasonjinsooyoo.freefindr.Tasks.RetrieveHttpDataTask;
 import com.example.jasonjinsooyoo.freefindr.Utilities.EventAdapter;
 import com.example.jasonjinsooyoo.freefindr.Utilities.Geometry;
@@ -60,13 +56,23 @@ public class EventFindR extends AppCompatActivity {
                 displaySingleEventActivity((Event)adapterView.getAdapter().getItem(position));
             }
         });
-        
+
+        // Dummy lat and lon for testing network
+        String pass = generateURLStr(fakeLongitude, fakeLatitude);
+
         try {
-            new RetrieveHttpDataTask().execute("http://10.19.133.195:9859/attractions/");
+            new RetrieveHttpDataTask().execute(pass);
         }
         catch (Exception e){
             System.out.println(e.toString());
         }
+    }
+
+    public String generateURLStr(double lon, double lat) {
+        Uri builtUri = Uri.parse(RetrieveHttpDataTask.BASE_URL).buildUpon()
+                .appendQueryParameter("lon",Double.toString(lon)).appendQueryParameter("lat",Double.toString(lat))
+                .build();
+        return builtUri.toString();
     }
 
     private void displaySingleEventActivity(Event event) {

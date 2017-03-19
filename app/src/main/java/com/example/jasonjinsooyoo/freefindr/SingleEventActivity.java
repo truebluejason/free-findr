@@ -2,11 +2,8 @@ package com.example.jasonjinsooyoo.freefindr;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
-
-import java.io.Serializable;
 
 /**
  * Created by Alec on 2017-03-19.
@@ -32,6 +29,4 @@ public class SingleEventActivity extends AppCompatActivity {
         distanceView.setText(eventData[2]);
         descriptionView.setText(eventData[3]);
     }
-
-
 }
