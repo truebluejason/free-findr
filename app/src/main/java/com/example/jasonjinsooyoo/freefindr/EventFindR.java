@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.jasonjinsooyoo.freefindr.Tasks.RetrieveHttpDataTask;
 import com.example.jasonjinsooyoo.freefindr.Utilities.EventAdapter;
 
 public class EventFindR extends AppCompatActivity {
@@ -46,6 +47,13 @@ public class EventFindR extends AppCompatActivity {
         // Set adapter
         EventAdapter myAdapter = new EventAdapter(NUM_EVENTS);
         myRV.setAdapter(myAdapter);
+        try {
+            new RetrieveHttpDataTask().execute("http://10.19.133.105:9859/attractions/");
+        }
+        catch (Exception e){
+            System.out.println(e.toString());
+        }
+
     }
 
     @Override
