@@ -2,6 +2,7 @@ package com.example.jasonjinsooyoo.freefindr;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,8 @@ import com.example.jasonjinsooyoo.freefindr.ENUM.Categories;
 import com.example.jasonjinsooyoo.freefindr.Tasks.RetrieveHttpDataTask;
 import com.example.jasonjinsooyoo.freefindr.Utilities.EventAdapter;
 import com.example.jasonjinsooyoo.freefindr.Utilities.Geometry;
+
+import java.util.ArrayList;
 
 public class EventFindR extends AppCompatActivity {
 
@@ -42,7 +45,15 @@ public class EventFindR extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(EventFindR.this, MapsActivity.class);
 
+                ArrayList<Parcelable> eventParcels = new ArrayList<>();
+                for(int i = 0; i < eventAdapter.getCount(); i++) {
+                    eventParcels.add((Parcelable)eventAdapter.getItem(i));
+                }
+
+                intent.putExtra("events", eventParcels);
+                startActivity(intent);
             }
         });
 

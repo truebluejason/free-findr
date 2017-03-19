@@ -11,7 +11,7 @@ import java.io.Serializable;
  * Created by jasonjinsooyoo on 2017-03-18.
  */
 
-public class Event{
+public class Event implements Parcelable {
 
     private String name;
     private int id;
@@ -19,11 +19,46 @@ public class Event{
     private double lon;
     private Categories type;
     private String description;
-
+    private String date; //Should be in format MON DD, YYYY TT:TT
 
     public Event(String name) {
         this.name = name;
     }
+
+    private Event(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        lat = in.readDouble();
+        lon = in.readDouble();
+        type = Categories.valueOf(in.readString());
+        description = in.readString();
+        date = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeDouble(lat);
+        dest.writeDouble(lon);
+        dest.writeString(type.toString());
+        dest.writeString(description);
+        dest.writeString(date);
+    }
+
+    public static final Parcelable.Creator<Event> CREATOR
+            = new Parcelable.Creator<Event>() {
+
+        @Override
+        public Event createFromParcel(Parcel in) {
+            return new Event(in);
+        }
+
+        @Override
+        public Event[] newArray(int size) {
+            return new Event[size];
+        }
+    };
 
     // Setters
     public void setID(int id) {
@@ -41,6 +76,7 @@ public class Event{
     public void setDesc(String description) {
         this.description = description;
     }
+    public void setDate(String date) { this.date = date; }
 
     // Getters
     public int getID() {return id;}
@@ -58,10 +94,9 @@ public class Event{
         if (type==Categories.TECH) return "TECH";
         return null;
     }
-
-    public double getLat() { return lat; }
-    public double getLon() { return lon; }
-
+    public double getLat() {return lat;}
+    public double getLon() { return lon;}
+    public String getDate() {return date;}
     // Two events are equal if and only if their id are the same
     @Override
     public boolean equals(Object o) {
@@ -73,5 +108,11 @@ public class Event{
     public int hashCode() {
         return id;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
 
 }
