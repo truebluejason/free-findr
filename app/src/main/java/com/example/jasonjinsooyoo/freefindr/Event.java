@@ -11,7 +11,7 @@ import java.io.Serializable;
  * Created by jasonjinsooyoo on 2017-03-18.
  */
 
-public class Event implements Parcelable {
+public class Event{
 
     private String name;
     private int id;
@@ -23,39 +23,6 @@ public class Event implements Parcelable {
     public Event(String name) {
         this.name = name;
     }
-
-    private Event(Parcel in) {
-        id = in.readInt();
-        name = in.readString();
-        lat = in.readDouble();
-        lon = in.readDouble();
-        type = Categories.valueOf(in.readString());
-        description = in.readString();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeString(name);
-        dest.writeDouble(lat);
-        dest.writeDouble(lon);
-        dest.writeString(type.toString());
-        dest.writeString(description);
-    }
-
-    public static final Parcelable.Creator<Event> CREATOR
-            = new Parcelable.Creator<Event>() {
-
-        @Override
-        public Event createFromParcel(Parcel in) {
-            return new Event(in);
-        }
-
-        @Override
-        public Event[] newArray(int size) {
-            return new Event[size];
-        }
-    };
 
     // Setters
     public void setID(int id) {
@@ -102,11 +69,5 @@ public class Event implements Parcelable {
     public int hashCode() {
         return id;
     }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
 
 }

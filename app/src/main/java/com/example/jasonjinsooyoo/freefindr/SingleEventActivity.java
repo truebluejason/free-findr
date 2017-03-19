@@ -20,17 +20,17 @@ public class SingleEventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_single_event);
 
         Intent intent = getIntent();
-        Event event = (Event)intent.getParcelableExtra("event");
+        String[] eventData = intent.getStringArrayExtra("event");
 
         TextView nameView = (TextView)findViewById(R.id.name_view);
         TextView typeView = (TextView)findViewById(R.id.type_view);
         TextView distanceView = (TextView)findViewById(R.id.distance_view);
         TextView descriptionView = (TextView)findViewById(R.id.description_view);
 
-        nameView.setText(event.getName());
-        typeView.setText(event.getType());
-        distanceView.setText(event.getType());
-        descriptionView.setText(event.getDescription());
+        nameView.setText(eventData[0]);
+        typeView.setText(eventData[1]);
+        distanceView.setText(eventData[2]);
+        descriptionView.setText(eventData[3]);
     }
 
 

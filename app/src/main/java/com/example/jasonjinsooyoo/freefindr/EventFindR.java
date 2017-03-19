@@ -31,21 +31,12 @@ public class EventFindR extends AppCompatActivity {
         setContentView(R.layout.activity_event_find_r);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        final EventFindR thisActivity = this;
 
        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Event event = new Event("abcd");
-                event.setID(49);
-                event.setDesc("THIS IS A DESCRIPTION");
-                event.setLat(3.44);
-                event.setLon(5.664);
-                event.setType(Categories.ART);
-                Intent intent = new Intent(thisActivity, SingleEventActivity.class);
-                intent.putExtra("event", event);
-                startActivity(intent);
+
             }
         });
 
@@ -60,7 +51,7 @@ public class EventFindR extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-
+                displaySingleEventActivity((Event)adapterView.getAdapter().getItem(position));
             }
         });
         
@@ -70,6 +61,17 @@ public class EventFindR extends AppCompatActivity {
         catch (Exception e){
             System.out.println(e.toString());
         }
+    }
+
+    private void displaySingleEventActivity(Event event) {
+        String[] eventData = new String[4];
+        eventData[0] = event.getName();
+        eventData[1] = event.getType().toString();
+        eventData[2] = "12345";
+        eventData[3] = event.getDescription();
+        Intent intent = new Intent(this, SingleEventActivity.class);
+        intent.putExtra("event", eventData);
+        startActivity(intent);
     }
 
     @Override
