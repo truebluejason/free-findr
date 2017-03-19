@@ -1,5 +1,7 @@
 package com.example.jasonjinsooyoo.freefindr;
 
+import com.example.jasonjinsooyoo.freefindr.Utilities.EventAdapter;
+
 import java.util.ArrayList;
 
 /**
@@ -8,6 +10,7 @@ import java.util.ArrayList;
 public class EventManager {
     private static EventManager ourInstance = new EventManager();
     private ArrayList eventList;
+    private EventAdapter eventAdapter;
 
     public static EventManager getInstance() {
         return ourInstance;
@@ -17,8 +20,15 @@ public class EventManager {
         eventList = new ArrayList<Event>();
     }
 
+    public void setAdapter(EventAdapter ea) {
+        eventAdapter = ea;
+    }
+
     public void addEvent(Event e) {
-        if (!eventList.contains(e)) eventList.add(e);
+        if (!eventList.contains(e)) {
+            eventList.add(e);
+            eventAdapter.addEvent(e);
+        }
     }
 
     public ArrayList getEventList() {

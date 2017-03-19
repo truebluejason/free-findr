@@ -8,8 +8,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/viewholder_instance"
         android:layout_gravity="center_vertical|start"
-        android:textSize="42sp"
-        android:text="k"/>
+        android:textSize="42sp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

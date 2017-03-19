@@ -7,10 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.example.jasonjinsooyoo.freefindr.Tasks.RetrieveHttpDataTask;
 import com.example.jasonjinsooyoo.freefindr.Utilities.EventAdapter;
 
 public class EventFindR extends AppCompatActivity {
@@ -44,10 +45,21 @@ public class EventFindR extends AppCompatActivity {
         myRV.setLayoutManager(myMan);
         // Optimize myRV
         myRV.setHasFixedSize(true);
+        
+        try {
+            new RetrieveHttpDataTask().execute("http://10.19.133.105:9859/attractions/");
+        }
+        catch (Exception e){
+            System.out.println(e.toString());
+        }
+
         // Set adapter
         EventAdapter myAdapter = new EventAdapter(NUM_EVENTS);
+        // Passes myAdapter to singleton to facilitate adding
+        EventManager.getInstance().setAdapter(myAdapter);
         myRV.setAdapter(myAdapter);
 
+        /* tests
         Event event1 = new Event("e1");
         Event event2 = new Event("e2");
         Event event3 = new Event("e3");
@@ -60,6 +72,7 @@ public class EventFindR extends AppCompatActivity {
         EventManager.getInstance().addEvent(event1);
         EventManager.getInstance().addEvent(event2);
         EventManager.getInstance().addEvent(event3);
+        */
     }
 
     @Override

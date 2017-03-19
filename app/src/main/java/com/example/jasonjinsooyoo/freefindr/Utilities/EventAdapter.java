@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.jasonjinsooyoo.freefindr.Event;
-import com.example.jasonjinsooyoo.freefindr.EventManager;
 import com.example.jasonjinsooyoo.freefindr.R;
 
 import java.util.ArrayList;
@@ -21,10 +20,18 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
     // Number of items to be stored
     int numOfItems;
+    ArrayList displayedEvents;
+    static int counter;
 
 
     public EventAdapter(int numOfItems) {
         this.numOfItems = numOfItems;
+        displayedEvents = new ArrayList<Event>();
+        counter=0;
+    }
+
+    public void addEvent(Event e) {
+        if (!displayedEvents.contains(e)) displayedEvents.add(e);
     }
 
     @Override
@@ -44,8 +51,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     // Binds data to newly created view holder
     @Override
     public void onBindViewHolder(EventViewHolder holder, int position) {
-
         holder.bind(position);
+        counter++;
     }
 
     @Override
@@ -60,20 +67,22 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         TextView eventNameSpace;
         // Space for category to be stored
         TextView categorySpace;
-        // 15 Events to be displayed
-        ArrayList displayedEvents;
 
         public EventViewHolder(View itemView) {
             super(itemView);
             eventNameSpace = (TextView) itemView.findViewById(R.id.viewholder_instance);
             categorySpace = (TextView) itemView.findViewById(R.id.viewholder_instance_category);
-            displayedEvents = EventManager.getInstance().getEventList();
         }
 
         // Binds data to view
         public void bind(int viewContent) {
-            eventNameSpace.setText(((Event) displayedEvents.get(viewContent)).getName());
-            categorySpace.setText(((Event) displayedEvents.get(viewContent)).getDescription());
+            if (counter < displayedEvents.size()) {
+                eventNameSpace.setText(((Event) displayedEvents.get(counter)).getName());
+                categorySpace.setText(((Event) displayedEvents.get(viewContent)).getType());
+            } else {
+                eventNameSpace.setText("fuck");
+            }
+
         }
     }
 }

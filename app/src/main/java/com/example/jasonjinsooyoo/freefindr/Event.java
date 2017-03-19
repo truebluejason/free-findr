@@ -40,6 +40,18 @@ public class Event {
     public int getID() {return id;}
     public String getName() {return name;}
     public String getDescription() {return description;}
+    public String getType() {
+        if (type==Categories.ART) return "ART";
+        if (type==Categories.BUSINESS) return "BUSINESS";
+        if (type==Categories.FOOD) return "FOOD";
+        if (type==Categories.GAME) return "GAME";
+        if (type==Categories.HEALTH) return "HEALTH";
+        if (type==Categories.OTHER) return "OTHER";
+        if (type==Categories.SOCIAL) return "SOCIAL";
+        if (type==Categories.SPORTS) return "SPORTS";
+        if (type==Categories.TECH) return "TECH";
+        return null;
+    }
 
     // Two events are equal if and only if their id are the same
     @Override

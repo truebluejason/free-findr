@@ -8,8 +8,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.nio.charset.MalformedInputException;
-
 /**
  * Created by jasonjinsooyoo on 2017-03-18.
  */
