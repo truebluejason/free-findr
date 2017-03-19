@@ -15,7 +15,10 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -42,11 +45,12 @@ import java.util.ArrayList;
 public class MapsActivity extends Activity implements MapEventsReceiver {
     // TODO: 4. Implement map
 
+    private static final String TAG = "MapActivity";
     private static final String MAP_CURRENT_ZOOM_KEY = "map-current-zoom";
     private static final String MAP_CENTER_LAT_KEY = "map-center-lat";
     private static final String MAP_CENTER_LON_KEY = "map-center-lon";
 
-
+    private ArrayList<Event> events;
     private MapView map;
     private IMapController mapController;
     private MyLocationNewOverlay myLocationOverlay;
@@ -71,7 +75,7 @@ public class MapsActivity extends Activity implements MapEventsReceiver {
 
         Intent intent = getIntent();
         ArrayList<Parcelable> eventParcels = intent.getParcelableArrayListExtra("events");
-        ArrayList<Event> events = new ArrayList<Event>();
+        events = new ArrayList<Event>();
         for (Parcelable p : eventParcels) {
             events.add((Event) p);
         }
@@ -103,7 +107,7 @@ public class MapsActivity extends Activity implements MapEventsReceiver {
         map.setBuiltInZoomControls(true);
         map.setMinZoomLevel(3);
 
-        map.setTileSource(TileSourceFactory.PUBLIC_TRANSPORT);
+        map.setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE);
 
         GpsMyLocationProvider imlp = new GpsMyLocationProvider(this.getBaseContext());
         imlp.setLocationUpdateMinDistance(1000);
@@ -164,11 +168,10 @@ public class MapsActivity extends Activity implements MapEventsReceiver {
         myLocationOverlay.enableMyLocation();
     }
 
-    /*   if we need to display the options menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.map, menu);
-        return true
+        return true;
     }
 
     @Override
@@ -183,7 +186,8 @@ public class MapsActivity extends Activity implements MapEventsReceiver {
                     mapController.animateTo(userLocation);
                     return true;
                 } catch (NullPointerException ex) {
-                    Toast.makeText(this, getString(R.string.location_not_found), Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Location not found", Toast.LENGTH_LONG).show();
+
                     Log.e(TAG, "Location not found");
                     return true;
                 }
@@ -194,9 +198,8 @@ public class MapsActivity extends Activity implements MapEventsReceiver {
                 return super.onOptionsItemSelected(item);
         }
     }
-    */
 
-
+    // Creates a event marker
     private Marker createEventMarker(Event event) {
         GeoPoint EventLocation = new GeoPoint((int) (event.getLat() * 1000000), (int) (event.getLon() * 1000000));
         Marker marker = new Marker(map);
@@ -211,6 +214,7 @@ public class MapsActivity extends Activity implements MapEventsReceiver {
 
     @Override
     public boolean singleTapConfirmedHelper(GeoPoint p) {
+        InfoWindow.closeAllInfoWindowsOn(map);
         return false;
     }
 
@@ -225,7 +229,7 @@ public class MapsActivity extends Activity implements MapEventsReceiver {
             super(layoutResId, mapView);
         }
 
-        /*
+
         @Override
         public void onOpen(Object item) {
             Marker marker = (Marker) item;
@@ -238,10 +242,10 @@ public class MapsActivity extends Activity implements MapEventsReceiver {
             layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(MapsActivity.this, Next activity on click should be here);
-                    intent.putExtra("event", EventList should be here)
+                    Intent intent = new Intent(MapsActivity.this, SingleEventActivity.class);
+                    intent.putExtra("event", markerEvent);
                 }
             });
-        } */
+        }
     }
 }
