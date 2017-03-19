@@ -16,6 +16,16 @@
             android:value="AIzaSyCnaXBqLIoqJHsXy4u3R6_Au0XJwuQYHNE" />
 
         <activity
+            android:name=".users.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".EventFindR"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" >
@@ -36,6 +46,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".users.PreferencesActivity" />
+        <activity android:name=".users.UserInfoActivity" />
+        <activity android:name=".users.EventListActivity"></activity>
+
     </application>
 
 </manifest>

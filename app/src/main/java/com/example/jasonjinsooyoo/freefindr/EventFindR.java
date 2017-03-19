@@ -3,22 +3,24 @@ package com.example.jasonjinsooyoo.freefindr;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+
 import android.widget.ListView;
 
-import com.example.jasonjinsooyoo.freefindr.ENUM.Categories;
+import com.example.jasonjinsooyoo.freefindr.Event;
+import com.example.jasonjinsooyoo.freefindr.EventManager;
+import com.example.jasonjinsooyoo.freefindr.R;
+import com.example.jasonjinsooyoo.freefindr.SingleEventActivity;
 import com.example.jasonjinsooyoo.freefindr.Tasks.RetrieveHttpDataTask;
 import com.example.jasonjinsooyoo.freefindr.Utilities.EventAdapter;
 import com.example.jasonjinsooyoo.freefindr.Utilities.Geometry;
+import com.example.jasonjinsooyoo.freefindr.users.User;
+import com.example.jasonjinsooyoo.freefindr.users.UserManager;
 
 public class EventFindR extends AppCompatActivity {
 
@@ -35,7 +37,6 @@ public class EventFindR extends AppCompatActivity {
         setContentView(R.layout.activity_event_find_r);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
 
        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -68,6 +69,7 @@ public class EventFindR extends AppCompatActivity {
             System.out.println(e.toString());
         }
     }
+
 
     private void displaySingleEventActivity(Event event) {
         String[] eventData = new String[4];
