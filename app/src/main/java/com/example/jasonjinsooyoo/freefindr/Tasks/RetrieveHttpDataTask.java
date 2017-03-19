@@ -16,12 +16,11 @@ import java.util.Scanner;
 
 public class RetrieveHttpDataTask extends android.os.AsyncTask<String, Void, String> {
 
-    private Exception exception;
     @Override
     protected String doInBackground(String... urls) {
         try {
-            //URL url = new URL(urls[0]);
-            URL url = new URL("http", "10.19.133.195", 9859, "/attractions/");
+            URL url = new URL(urls[0]);
+            //URL url = new URL("http", "10.19.133.195", 9859, "/attractions/");
             String result = getResponseFromHttpUrl(url);
 
 

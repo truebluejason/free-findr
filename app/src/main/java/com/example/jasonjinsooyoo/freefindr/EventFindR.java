@@ -24,6 +24,8 @@ public class EventFindR extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        System.out.println("a");
         setContentView(R.layout.activity_event_find_r);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -48,7 +50,7 @@ public class EventFindR extends AppCompatActivity {
         EventAdapter myAdapter = new EventAdapter(NUM_EVENTS);
         myRV.setAdapter(myAdapter);
         try {
-            new RetrieveHttpDataTask().execute("http://10.19.133.105:9859/attractions/");
+            new RetrieveHttpDataTask().execute("http://10.19.133.195:9859/attractions/");
         }
         catch (Exception e){
             System.out.println(e.toString());
@@ -77,4 +79,6 @@ public class EventFindR extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }
